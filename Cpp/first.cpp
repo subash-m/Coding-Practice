@@ -1,8 +1,8 @@
 #include<iostream>
 
 int main(){
-
-	std::cout<<"The Boss is here"<<std::endl;
+	float f(0.00009876f);
+	std::cout<<f<<std::endl;
 
 	return 0;
 }

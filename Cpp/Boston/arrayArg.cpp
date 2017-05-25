@@ -8,6 +8,7 @@ int main(){
 
 	int arr[5] = {1, 2, 3, 4, 5};
 
+	cout<< *(&arr+1) - arr<<endl;
 	cout<< fn(arr, 5)<<endl;
 
 	return 0;
@@ -15,5 +16,5 @@ int main(){
 
 int fn(int arr[], int len){
 
-	int len = *(&arr + 1) - arr;
+	return *(&arr + 1) - arr;
 }

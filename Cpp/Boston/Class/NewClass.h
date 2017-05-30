@@ -4,7 +4,12 @@
 class NewClass{
 
 	public:
-		NewClass();
+		NewClass(int, int);
+		~NewClass();
 		void print();
+		void constFnPrint() const;
+	private:
+		int regVar;
+		int const constVar;
 };
 #endif

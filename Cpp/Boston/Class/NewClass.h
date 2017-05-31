@@ -8,8 +8,10 @@ class NewClass{
 		~NewClass();
 		void print();
 		void constFnPrint() const;
+		NewClass operator+(NewClass);
+		int getRegVar();
 	private:
 		int regVar;
-		int const constVar;
+		//int const constVar;
 };
 #endif

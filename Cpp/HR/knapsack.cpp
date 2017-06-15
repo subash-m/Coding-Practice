@@ -1,59 +1,77 @@
-#include<iostream>
-#include<algorithm>
+#include <iostream>
 
 using namespace std;
 
-void print(unsigned short arr[], unsigned short len);
-unsigned short knapsack(unsigned short [], unsigned short n, unsigned short k);
-unsigned short max(unsigned short, unsigned short);
+int max(int a, int b);
+int knapsackRec(int w, int *val, int *weight, int n);
+int knapsackDP(int w, int *val, int *weight, int n);
+int knapsackDPEff(int w, int *val, int *weight, int n);
 
 int main(){
 
-	unsigned short testCases(0), n(0), k(0), i(0), j(0), temp(0);
+	int capacity(0), noOfItems(0), i(0);
+	int *weight, *val;
 
-	cin >> testCases;
+	cin >> capacity >> noOfItems;
+	
+	weight = new int[noOfItems];
+	val = new int[noOfItems];
 
-	for(i=0; i<testCases; i++){
-
-		cin >> n >> k;
-		unsigned short input[n];
-
-		for(j=0; j<n; j++){
-			cin >> input[j];
-		}
-
-		//print(input, n);
-		sort(input, input+n);
-		cout << knapsack(input, n, k)<< endl;
+	for(i=0; i<noOfItems; i++){
+		cin >> weight[i] >> val[i];
 	}
+
+	cout << knapsackDPEff(capacity, val, weight, noOfItems);
+
 	return 0;
 }
 
-unsigned short knapsack(unsigned short arr[], unsigned short n, unsigned short k){
-	//Base Case
-	if (n==0 || k==0)
+int max(int a, int b){
+	return a > b ? a : b;
+}
+
+int knapsackDPEff(int w, int *val, int *weight, int n){
+
+	int k[2][w+1] = {0};
+
+	for(int i(0); i<=n; i++){
+		for(int j(0); j<=w; j++){
+			if(i==0 || j==0)
+				k[j] = 0;
+			else if(weight[i-1] <= j)
+				k[j] = max(val[i-1] + k[j - weight[i-1]], k[j]);
+		}
+	}
+	return k[w];
+}
+
+int knapsackDP(int w, int *val, int *weight, int n){
+
+	int k[n+1][w+1] = {0};
+	for(int i(0); i<=n; i++){
+		for(int j(0); j<=w; j++){
+
+			if(i==0 || j==0)
+				k[i][j] = 0;
+
+			else if(weight[i-1] > j){
+				k[i][j] = k[i-1][j];
+			}
+			else{
+				k[i][j] = max(k[i-1][j], val[i-1] + k[i-1][j-weight[i-1]]);
+			}
+		}
+	}
+	return k[n][w];
+}
+
+int knapsackRec(int w, int *val, int *weight, int n){
+
+	if(n==0 || w == 0)
 		return 0;
-
-	/* If weight of the nth item is more, don't include in knapsack */
-	if(arr[n-1] > k)
-		return knapsack(arr, n-1, k);
-
-	/* Return the maximum of two cases:
-	   1) including nth item
-	   2) not including nth item */
+	
+	if(weight[n-1] > w)
+		return knapsackRec(w, val, weight, n-1);
 	else
-		return max(arr[n-1]+knapsack(arr, n, k-arr[n-1]), knapsack(arr, n-1, k));
-}
-
-unsigned short max(unsigned short a, unsigned short b){
-	return a>b?a:b;
-}
-
-void print(unsigned short arr[], unsigned short len){
-
-	unsigned short j(0);
-	for(j=0; j<len; j++)
-		cout<<arr[j] << ", ";
-	cout<<endl;
-
+		return max(val[n-1]+knapsackRec(w-weight[n-1], val, weight, n-1), knapsackRec(w, val, weight, n-1));
 }

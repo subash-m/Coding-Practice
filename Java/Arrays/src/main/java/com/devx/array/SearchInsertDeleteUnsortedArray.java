@@ -1,4 +1,4 @@
-package com.devx;
+package com.devx.array;
 
 import java.util.List;
 import java.util.Scanner;
@@ -34,11 +34,11 @@ public class SearchInsertDeleteUnsortedArray {
         System.out.println("Before insert: " + print(arr, n));
         if (n >= arr.length) {
             System.out.println("Array is already at maximum capacity");
-            return n;
+        } else {
+            arr[n++] = key;
+            System.out.println("After insert: " + print(arr, n));
         }
-        arr[n] = key;
-        System.out.println("After insert: " + print(arr, n + 1));
-        return n + 1;
+        return n;
     }
 
     public static String print(int[] arr, int n) {
@@ -151,6 +151,6 @@ public class SearchInsertDeleteUnsortedArray {
     }
 
     public static void main(String[] args) {
-        menuBoilerCodeUsingList();
+        menuBoilerCode();
     }
 }

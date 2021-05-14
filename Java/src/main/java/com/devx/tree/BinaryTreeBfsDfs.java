@@ -31,7 +31,7 @@ public class BinaryTreeBfsDfs {
             if(tempNode.right!=null)
                 queue.add(tempNode.right);
         }
-        System.out.println("BFS of Binary tree: " + output + "]");
+        System.out.println("GraphBFS of Binary tree: " + output + "]");
     }
 
     public static void inorderDfs(Node node) {

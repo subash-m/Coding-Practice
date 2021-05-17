@@ -2,32 +2,17 @@ package com.devx.dp;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author I348618
  * @since 5/15/2021
  */
-public class LongestIncreasingSubsequenceEff {
-    static int ceil(int[] arr, int length, int key) {
-        if (length == 0 || arr[length - 1] < key)
-            return -1;
-        if (arr[0] >= key) {
-            return 0;
-        }
-        int low = 0;
-        int high = length - 1;
-        while (high - low > 1) {
-            int mid = low + ((high - low) / 2);
-            if (arr[mid] >= key) {
-                high = mid;
-            } else {
-                low = mid;
-            }
-        }
-        return high;
-    }
+public class PrintLongestIncreasingSubsequenceEff {
 
     static int lis(int[] input) {
         int length = input.length;
@@ -36,16 +21,26 @@ public class LongestIncreasingSubsequenceEff {
         int[] activeList = new int[length];
         activeList[0] = input[0];
         int size = 1;
+        List<Integer> output = Stream.of(input[0]).collect(Collectors.toList());
 
         for(int i=1; i<length; i++) {
+            // System.out.println("ActiveList: " + Arrays.toString(activeList));
             if(input[i] > activeList[size-1]) {
                 activeList[size++] = input[i];
+                output.add(input[i]);
             }
             else {
-                int index = ceil(activeList, size, input[i]);
+                int index = Arrays.binarySearch(activeList, 0, size-1, input[i]);
+                if(index < 0)
+                    index = -1 * index -1;
+                // System.out.println("Index: " + index);
                 activeList[index] = input[i];
+                if(index == size-1)
+                    output.set(output.size() - 1, input[i]);
             }
         }
+        System.out.println("Longest increasing Subsequence: " + output.stream().map(Object::toString).collect(Collectors.joining(", ")));
+
         return size;
     }
 

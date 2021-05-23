@@ -7,17 +7,18 @@ import java.util.Queue;
  * @author I348618
  * @since 5/14/2021
  */
-class Node {
-    int data;
-    Node left;
-    Node right;
-    public Node(int d) {
-        data = d;
-    }
-}
-
 public class BinaryTreeBfsDfs {
-    Node root;
+
+    private Node root;
+
+    static class Node {
+        int data;
+        Node left;
+        Node right;
+        public Node(int d) {
+            data = d;
+        }
+    }
 
     public static void printBfs(BinaryTreeBfsDfs tree) {
         Queue<Node> queue = new LinkedList<Node>();

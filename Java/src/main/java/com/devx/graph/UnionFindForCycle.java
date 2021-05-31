@@ -82,7 +82,7 @@ public class UnionFindForCycle {
         // add edge 0-2
         graph.edge[2].src = 0;
         graph.edge[2].dest = 2;
-        
+
         prg.isCyclic(graph);
     }
 }

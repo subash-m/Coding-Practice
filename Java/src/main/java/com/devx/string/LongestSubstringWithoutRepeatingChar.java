@@ -29,7 +29,6 @@ public class LongestSubstringWithoutRepeatingChar {
 
     public static void main(String[] args) {
         LongestSubstringWithoutRepeatingChar l = new LongestSubstringWithoutRepeatingChar();
-
         System.out.println(l.lengthOfLongestSubstring("abcabcbb") == 3);
         System.out.println(l.lengthOfLongestSubstring("bbbb") == 1);
         System.out.println(l.lengthOfLongestSubstring("pwwkew") == 3);

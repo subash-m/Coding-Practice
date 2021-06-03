@@ -10,14 +10,8 @@ import java.util.Scanner;
  * @since 5/15/2021
  */
 public class LongestIncreasingSubsequenceEff {
-    static int ceil(int[] arr, int length, int key) {
-        if (length == 0 || arr[length - 1] < key)
-            return -1;
-        if (arr[0] >= key) {
-            return 0;
-        }
-        int low = 0;
-        int high = length - 1;
+    static int ceil(int[] arr, int high, int key) {
+        int low = -1;
         while (high - low > 1) {
             int mid = low + ((high - low) / 2);
             if (arr[mid] >= key) {
@@ -42,7 +36,7 @@ public class LongestIncreasingSubsequenceEff {
                 activeList[size++] = input[i];
             }
             else {
-                int index = ceil(activeList, size, input[i]);
+                int index = ceil(activeList, size-1, input[i]);
                 activeList[index] = input[i];
             }
         }

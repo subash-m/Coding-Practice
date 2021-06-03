@@ -14,19 +14,22 @@ import java.util.stream.Stream;
  */
 public class PrintLongestIncreasingSubsequenceDP {
     public static List<Integer> lis(int[] input) {
+        if(input.length < 2) {
+            return Arrays.stream(input).boxed().collect(Collectors.toList());
+        }
         List<Integer>[] mem = new List[input.length];
         for(int i=0; i<input.length; i++) {
-            mem[i] = Stream.of(input[i]).collect(Collectors.toList());
+            mem[i] = new ArrayList<>();
         }
-        int[] ints = { 1, 2 };
+        mem[0].add(input[0]);
         List<Integer> output = new ArrayList<>();
         for(int i=1; i<input.length; i++) {
             for(int j=0; j<i; j++) {
                 if(input[j] < input[i] && mem[j].size() >= mem[i].size()) {
                     mem[i] = new ArrayList<>(mem[j]);
-                    mem[i].add(input[i]);
                 }
             }
+            mem[i].add(input[i]);
             output = output.size() < mem[i].size() ? mem[i] : output;
         }
         return output;

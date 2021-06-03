@@ -5,23 +5,36 @@ import java.util.Scanner;
 
 /**
  * @author I348618
- * @since 5/15/2021
+ * @since 6/3/2021
  */
-public class LongestIncreasingSubsequenceDP {
+public class NumberOfLongestIncreasingSubsequence {
 
     public static int lis(int[] input) {
         int[] mem = new int[input.length];
         Arrays.fill(mem, 1);
+        int[] count = new int[input.length];
+        Arrays.fill(count, 1);
         int output=0;
         for(int i=1; i<input.length; i++) {
             for(int j=0; j<i; j++) {
                 if(input[j] < input[i]) {
-                    mem[i] = mem[i] <= mem[j] ? mem[j] + 1 : mem[i];
+                    if(mem[j] + 1 > mem[i]) {
+                        mem[i] = mem[j] + 1;
+                        count[i] = count[j];
+                    } else if(mem[j] + 1 == mem[i]) {
+                        count[i] += count[j];
+                    }
                 }
             }
             output = Math.max(output, mem[i]);
         }
-        return output;
+        // System.out.println(output+ "  "+Arrays.toString(mem)+"  " + Arrays.toString(count));
+        int result=0;
+        for(int i=0; i<input.length; i++) {
+            if(mem[i] == output)
+                result+=count[i];
+        }
+        return result;
     }
 
     public static void main(String[] arg) {
@@ -34,6 +47,6 @@ public class LongestIncreasingSubsequenceDP {
             input[i] = scanner.nextInt();
         }
 
-        System.out.println("The Longest increasing subsequence is " + lis(input));
+        System.out.println("The Number of Longest increasing subsequence is " + lis(input));
     }
 }

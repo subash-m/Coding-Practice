@@ -1,4 +1,4 @@
-package com.devx.dp;
+package com.devx.dp.lis;
 
 import java.util.Arrays;
 import java.util.Scanner;

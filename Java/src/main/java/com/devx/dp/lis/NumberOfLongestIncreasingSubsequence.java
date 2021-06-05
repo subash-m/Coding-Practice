@@ -1,4 +1,4 @@
-package com.devx.dp;
+package com.devx.dp.lis;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -38,15 +38,9 @@ public class NumberOfLongestIncreasingSubsequence {
     }
 
     public static void main(String[] arg) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter the number of items: ");
-        int n = scanner.nextInt();
-        int[] input = new int[n];
-        System.out.print("Enter the items: ");
-        for(int i=0; i<n; i++) {
-            input[i] = scanner.nextInt();
-        }
-
-        System.out.println("The Number of Longest increasing subsequence is " + lis(input));
+        int[] arr = new int[] { 1, 2, 4, 3, 5, 4, 7 };
+        System.out.printf("%nArray: %s %nNumber of LIS: [%d]%nCorrect Solution: %s%n", Arrays.toString(arr), lis(arr), lis(arr)==3);
+        arr = new int[] { 1, 4, 3, 2, 5, 9, 8, 7, 10 };
+        System.out.printf("%nArray: %s %nNumber of LIS: [%d]%nCorrect Solution: %s%n", Arrays.toString(arr), lis(arr), lis(arr)==9);
     }
 }
